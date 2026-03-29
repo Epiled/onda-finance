@@ -1,5 +1,11 @@
+import { Button } from "@radix-ui/themes";
+
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  return (
+    <div>
+      <Button variant="outline">Button</Button>
+    </div>
+  );
 };
 
 export default LoginPage;
