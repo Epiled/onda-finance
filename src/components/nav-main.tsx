@@ -6,7 +6,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { CirclePlusIcon, LayoutDashboardIcon, MailIcon } from "lucide-react";
+import { LayoutDashboardIcon, MailIcon } from "lucide-react";
 
 export function NavMain({
   items,
