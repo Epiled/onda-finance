@@ -5,9 +5,12 @@ import "./styles/global.css";
 import "@radix-ui/themes/styles.css";
 
 import App from "./App.tsx";
+import { TooltipProvider } from "./components/ui/tooltip.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <TooltipProvider>
+      <App />
+    </TooltipProvider>
   </StrictMode>,
 );

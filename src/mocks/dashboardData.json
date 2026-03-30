@@ -1,0 +1,242 @@
+[
+  {
+    "id": "tx-1001",
+    "date": "2026-01-05T09:00:00Z",
+    "description": "Salário Mensal",
+    "type": "INCOME",
+    "value": 5200.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1002",
+    "date": "2026-01-06T14:30:00Z",
+    "description": "Pagamento Aluguel",
+    "type": "EXPENSE",
+    "value": 1800.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1003",
+    "date": "2026-01-10T10:15:00Z",
+    "description": "IPVA 2026 - Cota Única",
+    "type": "EXPENSE",
+    "value": 1250.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1004",
+    "date": "2026-01-15T19:45:00Z",
+    "description": "Supermercado Extra",
+    "type": "EXPENSE",
+    "value": 540.20,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1005",
+    "date": "2026-01-18T11:20:00Z",
+    "description": "Pix Recebido - João Silva",
+    "type": "INCOME",
+    "value": 150.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1006",
+    "date": "2026-01-22T22:10:00Z",
+    "description": "Uber - Viagem",
+    "type": "EXPENSE",
+    "value": 35.50,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1007",
+    "date": "2026-01-25T16:05:00Z",
+    "description": "Compra Internacional Recusada",
+    "type": "EXPENSE",
+    "value": 850.00,
+    "status": "FAILED"
+  },
+  {
+    "id": "tx-1008",
+    "date": "2026-01-28T08:30:00Z",
+    "description": "Farmácia Pague Menos",
+    "type": "EXPENSE",
+    "value": 112.40,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1009",
+    "date": "2026-01-30T13:00:00Z",
+    "description": "Conta de Internet - Claro",
+    "type": "EXPENSE",
+    "value": 119.90,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1010",
+    "date": "2026-02-05T09:00:00Z",
+    "description": "Salário Mensal",
+    "type": "INCOME",
+    "value": 5200.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1011",
+    "date": "2026-02-06T10:00:00Z",
+    "description": "Pagamento Aluguel",
+    "type": "EXPENSE",
+    "value": 1800.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1012",
+    "date": "2026-02-12T23:45:00Z",
+    "description": "Bar do Zé (Carnaval)",
+    "type": "EXPENSE",
+    "value": 180.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1013",
+    "date": "2026-02-13T03:10:00Z",
+    "description": "Uber - Viagem",
+    "type": "EXPENSE",
+    "value": 65.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1014",
+    "date": "2026-02-15T14:20:00Z",
+    "description": "Supermercado Carrefour",
+    "type": "EXPENSE",
+    "value": 420.75,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1015",
+    "date": "2026-02-20T17:30:00Z",
+    "description": "Pix Enviado - Falha no Banco",
+    "type": "EXPENSE",
+    "value": 200.00,
+    "status": "FAILED"
+  },
+  {
+    "id": "tx-1016",
+    "date": "2026-02-22T20:15:00Z",
+    "description": "iFood - Pizzaria",
+    "type": "EXPENSE",
+    "value": 89.90,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1017",
+    "date": "2026-02-25T07:00:00Z",
+    "description": "Mensalidade Academia",
+    "type": "EXPENSE",
+    "value": 110.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1018",
+    "date": "2026-02-28T10:00:00Z",
+    "description": "Cashback Cartão de Crédito",
+    "type": "INCOME",
+    "value": 45.50,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1019",
+    "date": "2026-03-05T09:00:00Z",
+    "description": "Salário Mensal",
+    "type": "INCOME",
+    "value": 5200.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1020",
+    "date": "2026-03-06T10:05:00Z",
+    "description": "Pagamento Aluguel",
+    "type": "EXPENSE",
+    "value": 1800.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1021",
+    "date": "2026-03-10T14:00:00Z",
+    "description": "Conta de Luz - Enel",
+    "type": "EXPENSE",
+    "value": 145.30,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1022",
+    "date": "2026-03-15T18:30:00Z",
+    "description": "Supermercado Extra",
+    "type": "EXPENSE",
+    "value": 310.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1023",
+    "date": "2026-03-18T12:15:00Z",
+    "description": "Saque Banco24Horas - Limite Excedido",
+    "type": "EXPENSE",
+    "value": 1000.00,
+    "status": "FAILED"
+  },
+  {
+    "id": "tx-1024",
+    "date": "2026-03-22T15:40:00Z",
+    "description": "Petshop Cão Feliz",
+    "type": "EXPENSE",
+    "value": 120.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1025",
+    "date": "2026-03-25T09:20:00Z",
+    "description": "Pix Enviado - Mãe",
+    "type": "EXPENSE",
+    "value": 300.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1026",
+    "date": "2026-03-28T08:00:00Z",
+    "description": "Transferência Agendada - Poupança",
+    "type": "EXPENSE",
+    "value": 500.00,
+    "status": "PENDING"
+  },
+  {
+    "id": "tx-1027",
+    "date": "2026-03-29T10:00:00Z",
+    "description": "Fatura Cartão de Crédito",
+    "type": "EXPENSE",
+    "value": 1450.00,
+    "status": "PENDING"
+  },
+  {
+    "id": "tx-1028",
+    "date": "2026-03-29T16:45:00Z",
+    "description": "Pix Recebido - Venda Monitor",
+    "type": "INCOME",
+    "value": 850.00,
+    "status": "COMPLETED"
+  },
+  {
+    "id": "tx-1029",
+    "date": "2026-03-30T12:30:00Z",
+    "description": "iFood - Hamburgueria",
+    "type": "EXPENSE",
+    "value": 55.90,
+    "status": "PENDING"
+  },
+  {
+    "id": "tx-1030",
+    "date": "2026-03-30T14:10:00Z",
+    "description": "Estorno Uber em Processamento",
+    "type": "INCOME",
+    "value": 24.50,
+    "status": "PENDING"
+  }
+]
