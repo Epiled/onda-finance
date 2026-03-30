@@ -4,14 +4,10 @@ import { createRoot } from "react-dom/client";
 import "./styles/global.css";
 import "@radix-ui/themes/styles.css";
 
-import { Theme } from "@radix-ui/themes";
-
 import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Theme>
-      <App />
-    </Theme>
+    <App />
   </StrictMode>,
 );
