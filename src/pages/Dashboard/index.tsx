@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 import { AppSidebar } from "@/components/app-sidebar";
 import { DataTable } from "@/components/data-table";
@@ -11,28 +11,30 @@ import { useAuthStore } from "@/hooks/useAuthStore";
 import data from "../../mocks/dashboardData.json";
 
 const DashboardPage: React.FC = () => {
-  const { setBalance, setIncomeMonth, setExpenseMonth } =
-    useAuthStore();
+  const { user, setBalance, setIncomeMonth, setExpenseMonth } = useAuthStore();
+
+  const userTransactions = useMemo(() => {
+    return data.filter((item) => item.foreignKey === user?.id);
+  }, [user?.id]);
+
+  const balance = useMemo(() => {
+    return userTransactions.reduce((acc, tx) => {
+      if (tx.status !== "COMPLETED") return acc;
+
+      return tx.type === "INCOME" ? acc + tx.value : acc - tx.value;
+    }, 0);
+  }, [userTransactions]);
 
   useEffect(() => {
-    async function fetchUserBalance() {
-      setTimeout(() => {
-        const balanceBank = 5440.65;
-        // 5440.6500000000015
-
-        setBalance(balanceBank);
-      }, 1000);
-    }
-
-    fetchUserBalance();
-  }, [setBalance]);
+    setBalance(balance);
+  }, [balance, setBalance]);
 
   useEffect(() => {
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
 
-    const totals = data.reduce(
+    const totals = userTransactions.reduce(
       (acc: { income: 0; expense: 0 }, item) => {
         const itemDate = new Date(item.date);
         const itemMonth = itemDate.getMonth();
@@ -61,30 +63,7 @@ const DashboardPage: React.FC = () => {
 
     setIncomeMonth(totals.income);
     setExpenseMonth(totals.expense);
-  }, [setExpenseMonth, setIncomeMonth]);
-
-  useEffect(() => {
-    const totals = data.reduce(
-      (acc: { income: 0; expense: 0 }, item) => {
-        if (
-          item.type === "INCOME" &&
-          item.status !== "FAILED" &&
-          item.status !== "PENDING"
-        ) {
-          acc.income += item.value;
-        }
-
-        if (item.type === "EXPENSE" && item.status !== "FAILED") {
-          acc.expense += item.value;
-        }
-
-        return acc;
-      },
-      { income: 0, expense: 0 },
-    );
-
-    console.log(totals.income - totals.expense);
-  }, []);
+  }, [setExpenseMonth, setIncomeMonth, userTransactions]);
 
   return (
     <SidebarProvider
@@ -102,7 +81,7 @@ const DashboardPage: React.FC = () => {
           <div className="@container/main flex flex-1 flex-col gap-2">
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
               <SectionCards />
-              <DataTable data={data} />
+              <DataTable data={userTransactions} />
             </div>
           </div>
         </div>
