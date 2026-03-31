@@ -1,25 +1,15 @@
-import * as z from "zod";
-
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { CircleCheckIcon, LoaderIcon, XCircleIcon } from "lucide-react";
 
 import { Badge } from "./ui/badge";
-import { realFormat } from "@/utils/realFormat";
-import { brazilianDate } from "@/utils/brazilianDate";
+
 import type { ColumnDef } from "@tanstack/react-table";
 
-export const schema = z.object({
-  id: z.number(),
-  header: z.string(),
-  status: z.string(),
-  date: z.string(),
-  description: z.string(),
-  type: z.string(),
-  value: z.string(),
-});
+import type { Transaction } from "@/types/transaction";
 
-export type Transaction = z.infer<typeof schema>;
+import { brazilianDate } from "@/utils/brazilianDate";
+import { realFormat } from "@/utils/realFormat";
 
 export const columns: ColumnDef<Transaction>[] = [
   {

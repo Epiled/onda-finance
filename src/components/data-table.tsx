@@ -12,7 +12,6 @@ import {
   type SortingState,
   type VisibilityState,
 } from "@tanstack/react-table";
-import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 
@@ -50,13 +49,11 @@ import {
   ChevronsRightIcon,
 } from "lucide-react";
 
-import { schema, columns } from "./columns";
+import { columns } from "./columns";
 
-export function DataTable({
-  data: initialData,
-}: {
-  data: z.infer<typeof schema>[];
-}) {
+import type { Transaction } from "@/types/transaction";
+
+export function DataTable({ data: initialData }: { data: Transaction[] }) {
   const [data, setData] = React.useState(() => initialData);
 
   React.useEffect(() => {
