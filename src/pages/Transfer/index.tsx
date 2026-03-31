@@ -1,5 +1,3 @@
-import { useEffect, useMemo } from "react";
-
 import { AppSidebar } from "@/components/app-sidebar";
 import { DataTable } from "@/components/data-table";
 import { SiteHeader } from "@/components/site-header";
@@ -9,54 +7,18 @@ import { Card } from "@/components/card";
 import { TransactionForm } from "@/components/transaction-form";
 
 import { useAuthStore } from "@/hooks/useAuthStore";
+import { useUser } from "@/hooks/useUser";
+import { useTransactions } from "@/hooks/useTransactions";
 
 import { realFormat } from "@/utils/realFormat";
 
-import { useTransactionStore } from "@/hooks/useTransactionStore";
-
 const TransferPage: React.FC = () => {
-  const { user, balance, setIncomeMonth, setExpenseMonth } = useAuthStore();
-  const { transactions } = useTransactionStore();
+  const user = useUser();
+  const { balance } = useAuthStore();
 
-  const userTransactions = useMemo(() => {
-    return transactions.filter((item) => item.foreignKey === user?.id);
-  }, [transactions, user?.id]);
+  const { data, isLoading } = useTransactions(user.id);
 
-  useEffect(() => {
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
-
-    const totals = userTransactions.reduce(
-      (acc: { income: 0; expense: 0 }, item) => {
-        const itemDate = new Date(item.date);
-        const itemMonth = itemDate.getMonth();
-        const itemYear = itemDate.getFullYear();
-
-        if (itemMonth !== currentMonth || itemYear !== currentYear) {
-          return acc;
-        }
-
-        if (
-          item.type === "INCOME" &&
-          item.status !== "FAILED" &&
-          item.status !== "PENDING"
-        ) {
-          acc.income += item.value;
-        }
-
-        if (item.type === "EXPENSE" && item.status !== "FAILED") {
-          acc.expense += item.value;
-        }
-
-        return acc;
-      },
-      { income: 0, expense: 0 },
-    );
-
-    setIncomeMonth(totals.income);
-    setExpenseMonth(totals.expense);
-  }, [setExpenseMonth, setIncomeMonth, userTransactions]);
+  const transactionsList = data?.transactions ?? [];
 
   return (
     <SidebarProvider
@@ -82,7 +44,7 @@ const TransferPage: React.FC = () => {
 
               <TransactionForm />
 
-              <DataTable data={userTransactions} />
+              <DataTable data={transactionsList} />
             </div>
           </div>
         </div>
