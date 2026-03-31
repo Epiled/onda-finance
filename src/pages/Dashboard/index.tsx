@@ -7,15 +7,15 @@ import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 import { useAuthStore } from "@/hooks/useAuthStore";
-
-import data from "../../mocks/dashboardData.json";
+import { useTransactionStore } from "@/hooks/useTransactionStore";
 
 const DashboardPage: React.FC = () => {
   const { user, setBalance, setIncomeMonth, setExpenseMonth } = useAuthStore();
+  const { transactions } = useTransactionStore();
 
   const userTransactions = useMemo(() => {
-    return data.filter((item) => item.foreignKey === user?.id);
-  }, [user?.id]);
+    return transactions.filter((item) => item.foreignKey === user?.id);
+  }, [transactions, user?.id]);
 
   const balance = useMemo(() => {
     return userTransactions.reduce((acc, tx) => {

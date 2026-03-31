@@ -18,8 +18,8 @@ import { useAuthStore } from "@/hooks/useAuthStore";
 const data = {
   navMain: [
     {
-      title: "Transfers",
-      url: "#",
+      title: "Transfer",
+      url: "/transfer",
       icon: <ArrowLeftRightIcon />,
     },
   ],

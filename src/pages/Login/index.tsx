@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Controller, useForm } from "react-hook-form";
 
@@ -33,12 +33,22 @@ import { Mail, Lock, EyeOff, Eye } from "lucide-react";
 
 import { loginSchema, type LoginFormValues } from "./login-schema";
 
+import { useTransactionStore } from "@/hooks/useTransactionStore";
+
 import { USERS_MOCK } from "@/mocks/users.mock";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const { login } = useAuthStore();
+  
+  const transactions = useTransactionStore((state) => state.transactions);
+
+  useEffect(() => {
+    if (!localStorage.getItem("onda-finance-transations")) {
+      useTransactionStore.setState({ transactions: transactions });
+    }
+  }, [transactions]);
 
   const [isVisible, setIsVisible] = useState(false);
 
