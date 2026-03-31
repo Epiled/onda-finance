@@ -1,17 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import dashboardData from "@/mocks/dashboardData.json";
+import type { Transaction } from "@/types/transaction";
 
-interface Transaction {
-   id: string
-   foreignKey: string,
-   date: string,
-   description: string,
-   type: string,
-   value: number,
-   status: string
-}
+import dashboardData from "@/mocks/dashboardData.json";
 
 interface TransactionStore {
   transactions: Transaction[];

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar";
 import { ArrowLeftRightIcon, WavesIcon } from "lucide-react";
 
-import { useAuthStore } from "@/hooks/useAuthStore";
+import { useUser } from "@/hooks/useUser";
 
 const data = {
   navMain: [
@@ -26,7 +26,7 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user } = useAuthStore();
+  const user = useUser();
 
   return (
     <Sidebar collapsible="icon" {...props}>

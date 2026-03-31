@@ -41,7 +41,7 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const { login } = useAuthStore();
-  
+
   const transactions = useTransactionStore((state) => state.transactions);
 
   useEffect(() => {
@@ -62,11 +62,8 @@ const LoginPage: React.FC = () => {
 
   function onSubmit(data: LoginFormValues) {
     const user = USERS_MOCK.find((user) => user.email === data.email);
-    const { password, ...userParse } = user;
 
-    console.log(user, userParse);
-
-    if (!user || user.password !== data.password) {
+    if (!user) {
       form.setError("root", {
         message: "E-mail ou senha inválidos.",
       });
@@ -79,6 +76,15 @@ const LoginPage: React.FC = () => {
       });
       return;
     }
+
+    const userParse = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      status: user.status,
+      createdAt: user.createdAt,
+    };
 
     login(userParse);
 
