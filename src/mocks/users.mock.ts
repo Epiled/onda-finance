@@ -1,0 +1,105 @@
+import * as z from "zod";
+
+export const userSchema = z.object({
+  id: z.uuid(),
+  name: z.string(),
+  email: z.email(),
+  role: z.enum(["ADMIN", "USER"]),
+  status: z.enum(["ACTIVE", "INACTIVE"]),
+  createdAt: z.string(),
+});
+
+export type User = z.infer<typeof userSchema>;
+
+export const USERS_MOCK = [
+  {
+    id: "7b2e1a3c-4d5e-6f7g-8h9i-0j1k2l3m4n5o",
+    name: "Max Leiter",
+    email: "max.leiter@example.com",
+    password: "Onda@2026",
+    role: "ADMIN",
+    status: "ACTIVE",
+    createdAt: "2024-01-15T10:30:00Z",
+  },
+  {
+    id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+    name: "Ana Silva",
+    email: "ana.silva@ondafinance.com",
+    password: "Onda@2026",
+    role: "USER",
+    status: "ACTIVE",
+    createdAt: "2024-02-10T14:20:00Z",
+  },
+  {
+    id: "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+    name: "Bruno Oliveira",
+    email: "bruno.o@gmail.com",
+    password: "Onda@2026",
+    role: "USER",
+    status: "INACTIVE",
+    createdAt: "2023-12-05T09:15:00Z",
+  },
+  {
+    id: "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+    name: "Carla Souza",
+    email: "carla.souza@outlook.com",
+    password: "Onda@2026",
+    role: "USER",
+    status: "ACTIVE",
+    createdAt: "2024-03-01T11:45:00Z",
+  },
+  {
+    id: "4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r9s",
+    name: "Daniel Santos",
+    email: "daniel.santos@company.com",
+    password: "Onda@2026",
+    role: "USER",
+    status: "ACTIVE",
+    createdAt: "2024-01-20T16:00:00Z",
+  },
+  {
+    id: "5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t",
+    name: "Eduarda Lima",
+    email: "eduarda.lima@fintech.io",
+    password: "Onda@2026",
+    role: "ADMIN",
+    status: "ACTIVE",
+    createdAt: "2023-11-28T08:00:00Z",
+  },
+  {
+    id: "6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t1u",
+    name: "Felipe Costa",
+    email: "felipe.c@hotmail.com",
+    password: "Onda@2026",
+    role: "USER",
+    status: "INACTIVE",
+    createdAt: "2024-02-25T13:10:00Z",
+  },
+  {
+    id: "7g8h9i0j-1k2l-3m4n-5o6p-7q8r9s0t1u2v",
+    name: "Gabriela Rocha",
+    email: "gabi.rocha@onda.com",
+    password: "Onda@2026",
+    role: "USER",
+    status: "ACTIVE",
+    createdAt: "2024-03-12T17:30:00Z",
+  },
+  {
+    id: "8h9i0j1k-2l3m-4n5o-6p7q-8r9s0t1u2v3w",
+    name: "Henrique Melo",
+    email: "h.melo@freelance.com",
+    password: "Onda@2026",
+    role: "USER",
+    status: "ACTIVE",
+    createdAt: "2024-01-05T10:00:00Z",
+  },
+  {
+    id: "9i0j1k2l-3m4n-5o6p-7q8r-9s0t1u2v3w4x",
+    name: "Isabela Martins",
+    email: "isabela.m@agency.com",
+    password: "Onda@2026",
+    role: "USER",
+    status: "ACTIVE",
+    createdAt: "2024-03-28T09:50:00Z",
+  }
+];

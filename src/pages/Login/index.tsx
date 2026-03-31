@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import { Controller, useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
-import * as z from "zod";
+import { useAuthStore } from "@/hooks/useAuthStore";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +16,7 @@ import {
 } from "@/components/ui/card";
 import {
   Field,
+  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -25,45 +27,61 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-
-import { Mail, Lock, EyeOff } from "lucide-react";
-
 import { Spinner } from "@/components/ui/spinner";
 
-const formSchema = z.object({
-  email: z.email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
+import { Mail, Lock, EyeOff, Eye } from "lucide-react";
+
+import { loginSchema, type LoginFormValues } from "./login-schema";
+
+import { USERS_MOCK } from "@/mocks/users.mock";
 
 const LoginPage: React.FC = () => {
-  const [loggingIn, setLoggingIn] = useState(false);
+  const navigate = useNavigate();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { login } = useAuthStore();
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log("Form Data:", data);
-    setLoggingIn(true);
+  function onSubmit(data: LoginFormValues) {
+    const user = USERS_MOCK.find((user) => user.email === data.email);
+    const { password, ...userParse } = user;
 
-    // Simulate an API call
-    setTimeout(() => {
-      setLoggingIn(false);
-    }, 2000);
+    console.log(user, userParse);
+
+    if (!user || user.password !== data.password) {
+      form.setError("root", {
+        message: "E-mail ou senha inválidos.",
+      });
+      return;
+    }
+
+    if (user.status === "INACTIVE") {
+      form.setError("root", {
+        message: "Sua conta está desativada. Contate o suporte.",
+      });
+      return;
+    }
+
+    login(userParse);
+
+    navigate("/dashboard");
   }
 
   return (
     <div className="grid min-h-screen w-full place-items-center px-4">
-      <Card className="w-full max-w-md flex">
-        <CardHeader>
-          <CardTitle variant={"huge"} className="text-center py-4">
-            Welcome to Onda Finance
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center">
+          <CardTitle variant={"huge"} className="mb-5">
+            Sign in to Onda Finance
           </CardTitle>
-          <CardTitle variant={"subtitle"}>Login to your account</CardTitle>
           <CardDescription>
             Enter your email and password below to login to your account
           </CardDescription>
@@ -78,7 +96,7 @@ const LoginPage: React.FC = () => {
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor="email-form">E-mail:</FieldLabel>
-                      <InputGroup>
+                      <InputGroup className="min-h-10">
                         <InputGroupAddon align="inline-start" className="px-2">
                           <Mail className="text-muted-foreground" />
                         </InputGroupAddon>
@@ -105,7 +123,7 @@ const LoginPage: React.FC = () => {
                         <FieldLabel htmlFor="password-form">
                           Password:
                         </FieldLabel>
-                        <InputGroup>
+                        <InputGroup className="min-h-10">
                           <InputGroupAddon
                             align="inline-start"
                             className="px-2"
@@ -115,12 +133,20 @@ const LoginPage: React.FC = () => {
                           <InputGroupInput
                             {...field}
                             id="password-form"
-                            type="password"
+                            type={isVisible ? "text" : "password"}
                             placeholder="••••••••"
                             aria-invalid={fieldState.invalid}
                           />
-                          <InputGroupAddon align="inline-end" className="px-2">
-                            <EyeOff className="text-muted-foreground" />
+                          <InputGroupAddon
+                            align="inline-end"
+                            className="px-2"
+                            onClick={() => setIsVisible((prev) => !prev)}
+                          >
+                            {isVisible ? (
+                              <EyeOff className="text-muted-foreground" />
+                            ) : (
+                              <Eye className="text-muted-foreground" />
+                            )}
                           </InputGroupAddon>
                         </InputGroup>
                         {fieldState.invalid && (
@@ -139,17 +165,24 @@ const LoginPage: React.FC = () => {
               </FieldGroup>
             </FieldSet>
           </form>
+          {form.formState.errors.email && (
+            <FieldError errors={[form.formState.errors.email]} />
+          )}
+          {form.formState.errors.root && (
+            <FieldError errors={[form.formState.errors.root]} />
+          )}
         </CardContent>
+
         <CardFooter className="flex-col gap-2">
           <Field>
             <Button
               type="submit"
               className="w-full"
-              size="lg"
+              size="lg3"
               form="login-form"
-              disabled={loggingIn}
+              disabled={form.formState.isSubmitting}
             >
-              {loggingIn ? (
+              {form.formState.isSubmitting ? (
                 <>
                   <Spinner />
                   Wait
@@ -158,9 +191,9 @@ const LoginPage: React.FC = () => {
                 "Login"
               )}
             </Button>
-            <Button type="submit" className="w-full" variant="ghost">
-              Create an account
-            </Button>
+            <FieldDescription className="text-center">
+              Don&apos;t have an account? <a href="#">Sign up</a>
+            </FieldDescription>
           </Field>
         </CardFooter>
       </Card>
