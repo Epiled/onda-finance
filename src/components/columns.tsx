@@ -72,7 +72,7 @@ export const columns: ColumnDef<Transaction>[] = [
         <span
           className={type === "INCOME" ? "text-emerald-600" : "text-rose-600"}
         >
-          {type === "INCOME" ? "ENTRADA" : "SAÍDA"}
+          {type === "INCOME" ? "RECEBIDO" : "DÉBITO"}
         </span>
       );
     },
