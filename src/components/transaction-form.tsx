@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { useTransactionStore } from "@/hooks/useTransactionStore";
+import { useUser } from "@/hooks/useUser";
 
 import {
   transactionSchema,
@@ -32,8 +33,9 @@ import {
 import { realFormat } from "@/utils/realFormat";
 
 export function TransactionForm() {
-  const { user, balance, setBalance } = useAuthStore();
+  const { balance, setBalance } = useAuthStore();
   const { addTransaction } = useTransactionStore();
+  const user = useUser();
 
   const form = useForm<TransactionFormValues>({
     resolver: zodResolver(transactionSchema),
@@ -45,7 +47,7 @@ export function TransactionForm() {
   });
 
   function onSubmit(data: TransactionFormValues) {
-    const { from, to, value } = data;
+    const { value } = data;
 
     const description = "";
 
