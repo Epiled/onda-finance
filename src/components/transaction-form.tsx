@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,23 +21,25 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { useAuthStore } from "@/hooks/useAuthStore";
-import { useTransactionStore } from "@/hooks/useTransactionStore";
+import { useCreateTransaction } from "@/hooks/useTransactionStore";
 import { useUser } from "@/hooks/useUser";
 
 import {
-  transactionSchema,
+  transactionSchemaForm,
   type TransactionFormValues,
-} from "./transaction-form-schema";
+} from "../types/transaction-form-schema";
 
 import { realFormat } from "@/utils/realFormat";
+import { toast } from "sonner";
 
 export function TransactionForm() {
-  const { balance, setBalance } = useAuthStore();
-  const { addTransaction } = useTransactionStore();
   const user = useUser();
+  const { balance, setBalance } = useAuthStore();
+
+  const { mutate: addTransaction, isPending } = useCreateTransaction();
 
   const form = useForm<TransactionFormValues>({
-    resolver: zodResolver(transactionSchema),
+    resolver: zodResolver(transactionSchemaForm),
     defaultValues: {
       from: user.email,
       to: "",
@@ -47,9 +48,9 @@ export function TransactionForm() {
   });
 
   function onSubmit(data: TransactionFormValues) {
-    const { value } = data;
+    const { value, to } = data;
 
-    const description = "";
+    const description = `Transferência para ${to}`;
 
     if (balance < value) return;
 
@@ -65,21 +66,15 @@ export function TransactionForm() {
 
     const calc = balance - value;
     setBalance(calc);
-    addTransaction(transactionObj);
-
-    toast("You submitted the following values:", {
-      description: (
-        <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-      position: "bottom-right",
-      classNames: {
-        content: "flex flex-col gap-2",
+    addTransaction(transactionObj, {
+      onSuccess: () => {
+        form.reset();
+        toast.success("Transferência realizada com sucesso!");
       },
-      style: {
-        "--border-radius": "calc(var(--radius)  + 4px)",
-      } as React.CSSProperties,
+      onError: () => {
+        console.log("Erro");
+        toast.error("Erro ao processar transferência.");
+      },
     });
   }
 
@@ -186,7 +181,7 @@ export function TransactionForm() {
               form="form-rhf-input"
               disabled={form.formState.isSubmitting}
             >
-              Enviar
+              {isPending ? "Enviando..." : "Enviar"}
             </Button>
           </Field>
         </CardFooter>
