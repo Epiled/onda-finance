@@ -16,7 +16,7 @@ const DashboardPage: React.FC = () => {
   TransactionService.getAll();
   const user = useUser();
 
-  const { data, isLoading } = useTransactions(user.id);
+  const { data } = useTransactions(user.id);
 
   const { setBalance, setIncomeMonth, setExpenseMonth } = useAuthStore();
 

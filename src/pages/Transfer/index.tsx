@@ -16,7 +16,7 @@ const TransferPage: React.FC = () => {
   const user = useUser();
   const { balance } = useAuthStore();
 
-  const { data, isLoading } = useTransactions(user.id);
+  const { data } = useTransactions(user.id);
 
   const transactionsList = data?.transactions ?? [];
 
