@@ -1,28 +1,21 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-
+import { TransactionService } from "@/services/transactions.service";
 import type { Transaction } from "@/types/transaction";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-import dashboardData from "@/mocks/dashboardData.json";
-
-interface TransactionStore {
-  transactions: Transaction[];
-  addTransaction: (tx: Transaction) => void;
+export function useTransactions() {
+  return useQuery({
+    queryKey: ["transactions"],
+    queryFn: TransactionService.getAll,
+  });
 }
 
-export const useTransactionStore = create<TransactionStore>()(
-  persist(
-    (set) => ({
-      transactions: dashboardData,
+export function useCreateTransaction() {
+  const queryClient = useQueryClient();
 
-      addTransaction: (newTx) => {
-        set((state) => ({
-          transactions: [...state.transactions, newTx]
-        }))
-      }
-    }),
-    {
-      name: "onda-finance-transations",
-    }
-  )
-);
+  return useMutation({
+    mutationFn: (data: Transaction) => TransactionService.create(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+    },
+  });
+}

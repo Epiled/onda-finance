@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const schema = z.object({
+export const transactionSchema = z.object({
   id: z.string(),
   foreignKey: z.string(),
   date: z.string(),
@@ -10,4 +10,4 @@ export const schema = z.object({
   status: z.string(),
 });
 
-export type Transaction = z.infer<typeof schema>;
+export type Transaction = z.infer<typeof transactionSchema>;

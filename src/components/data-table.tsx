@@ -172,6 +172,7 @@ export function DataTable({ data: initialData }: { data: Transaction[] }) {
                 <>
                   {table.getRowModel().rows.map((row) => (
                     <TableRow
+                      key={row.id}
                       data-state={row.getIsSelected() && "selected"}
                       className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
                     >
