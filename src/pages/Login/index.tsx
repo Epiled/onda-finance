@@ -100,9 +100,9 @@ const LoginPage: React.FC = () => {
       <WaveBackground />
       <Card className="w-full max-w-md p-6">
         <CardHeader className="text-center gap-3">
-          <CardTitle variant={"huge"}>Sign in to Onda Finance</CardTitle>
+          <CardTitle variant={"huge"}>Faça login na Onda Finance</CardTitle>
           <CardDescription>
-            Enter your email and password below to login to your account
+            Digite seu e-mail e senha abaixo para acessar sua conta
           </CardDescription>
         </CardHeader>
 
@@ -117,7 +117,7 @@ const LoginPage: React.FC = () => {
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="email-form">Email:</FieldLabel>
+                      <FieldLabel htmlFor="email-form">E-mail:</FieldLabel>
                       <InputGroup className="min-h-12">
                         <InputGroupAddon
                           align="inline-start"
@@ -145,9 +145,7 @@ const LoginPage: React.FC = () => {
                     control={form.control}
                     render={({ field, fieldState }) => (
                       <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor="password-form">
-                          Password:
-                        </FieldLabel>
+                        <FieldLabel htmlFor="password-form">Senha:</FieldLabel>
                         <InputGroup className="min-h-12">
                           <InputGroupAddon
                             align="inline-start"
@@ -185,7 +183,7 @@ const LoginPage: React.FC = () => {
                     className="ml-auto inline-block font-normal text-muted-foreground 
                     underline-offset-4 underline [:hover]:text-primary-foreground"
                   >
-                    Forgot your password?
+                    Esqueceu sua senha?
                   </a>
                 </div>
               </FieldGroup>
@@ -218,7 +216,7 @@ const LoginPage: React.FC = () => {
               )}
             </Button>
             <FieldDescription className="text-center [&>a:hover]:text-primary-foreground">
-              Don&apos;t have an account? <a href="#">Sign up</a>
+              Não tem uma conta <a href="#">Cadastre-se</a>
             </FieldDescription>
           </Field>
         </CardFooter>
