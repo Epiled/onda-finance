@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +20,7 @@ export function NavMain({
   }[];
 }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <SidebarGroup>
@@ -28,7 +29,8 @@ export function NavMain({
           <SidebarMenuItem className="flex items-center gap-2">
             <SidebarMenuButton
               tooltip="Quick Create"
-              className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
+              isActive={location.pathname === "/dashboard"}
+              className="min-w-8 data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
               onClick={() => navigate("/dashboard")}
             >
               <LayoutDashboardIcon />
@@ -45,17 +47,25 @@ export function NavMain({
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem
-              key={item.title}
-              onClick={() => navigate(item.url)}
-            >
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon}
-                <span>{item.title}</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {items.map((item) => {
+            const isActive = location.pathname === item.url;
+
+            return (
+              <SidebarMenuItem
+                key={item.title}
+                onClick={() => navigate(item.url)}
+              >
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  isActive={isActive}
+                  className="min-w-8 data-[active=true]:bg-primary data-[active=true]:text-primary-foreground"
+                >
+                  {item.icon}
+                  <span>{item.title}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

@@ -1,5 +1,3 @@
-import { Checkbox } from "@/components/ui/checkbox";
-
 import { CircleCheckIcon, LoaderIcon, XCircleIcon } from "lucide-react";
 
 import { Badge } from "./ui/badge";
@@ -13,48 +11,22 @@ import { realFormat } from "@/utils/realFormat";
 
 export const columns: ColumnDef<Transaction>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      </div>
-    ),
-    cell: ({ row }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      </div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
     accessorKey: "date",
-    header: () => <div className="w-full">Data</div>,
+    header: "Data",
     cell: ({ row }) => (
       <p id={`${row.original.id}-data`}>{brazilianDate(row.original.date)}</p>
     ),
   },
   {
     accessorKey: "description",
-    header: () => <div className="w-full">Descrição</div>,
+    header: "Descrição",
     cell: ({ row }) => (
       <p id={`${row.original.id}-description`}>{row.original.description}</p>
     ),
   },
   {
     accessorKey: "type",
-    header: () => <div className="w-full">Tipo</div>,
+    header: "Tipo",
     cell: ({ row }) => {
       const type = row.original.type;
 
@@ -69,7 +41,7 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "value",
-    header: () => <div className="w-full">Valor</div>,
+    header: "Valor",
     cell: ({ row }) => (
       <p id={`${row.original.id}-value`}>
         {realFormat(String(row.original.value))}
@@ -84,31 +56,32 @@ export const columns: ColumnDef<Transaction>[] = [
 
       return (
         <div className="flex w-full justify-end">
-          <Badge
-            variant="outline"
-            className="flex items-center gap-1.5 px-2 py-0.5 font-medium"
-          >
-            {status === "COMPLETED" && (
-              <>
-                <CircleCheckIcon className="text-emerald-500" />
+          {status === "COMPLETED" && (
+            <>
+              <Badge className="flex items-center gap-1.5 px-2 py-0.5 font-medium">
+                <CircleCheckIcon />
                 <span>Concluído</span>
-              </>
-            )}
+              </Badge>
+            </>
+          )}
 
-            {status === "PENDING" && (
-              <>
-                <LoaderIcon className="animate-spin text-zinc-500" />
+          {status === "PENDING" && (
+            <>
+              <Badge className="flex items-center gap-1.5 px-2 py-0.5 font-medium bg-orange-400 ">
+                <LoaderIcon className="animate-spin" />
                 <span>Pendente</span>
-              </>
-            )}
+              </Badge>
+            </>
+          )}
 
-            {status === "FAILED" && (
-              <>
-                <XCircleIcon className="text-rose-500" />
+          {status === "FAILED" && (
+            <>
+              <Badge className="flex items-center gap-1.5 px-2 py-0.5 font-medium bg-red-400">
+                <XCircleIcon />
                 <span>Falhou</span>
-              </>
-            )}
-          </Badge>
+              </Badge>
+            </>
+          )}
         </div>
       );
     },

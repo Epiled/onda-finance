@@ -19,7 +19,6 @@
     "lib": "@/lib",
     "hooks": "@/hooks",
     "mocks": "@/mocks"
-
   },
   "menuColor": "default",
   "menuAccent": "subtle",

@@ -28,12 +28,16 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { Spinner } from "@/components/ui/spinner";
+import { Separator } from "@/components/ui/separator";
+import { WaveBackground } from "@/components/wave-background";
 
 import { Mail, Lock, EyeOff, Eye } from "lucide-react";
 
 import { loginSchema, type LoginFormValues } from "./login-schema";
 
 import { USERS_MOCK } from "@/mocks/users.mock";
+
+import LogoLight from "@/assets/imgs/logos/logo-light.webp";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -82,16 +86,28 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="grid min-h-screen w-full place-items-center px-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle variant={"huge"} className="mb-5">
-            Sign in to Onda Finance
-          </CardTitle>
+    <main className="grid min-h-screen w-full place-items-center p-6 bg-cover bg-bottom bg-no-repeat">
+      <div className="fixed top-16 md:top-20 lg:top-16 md:left-16 w-40 flex justify-center">
+        <img
+          src={LogoLight}
+          alt="Logo Onda Finance"
+          width="500"
+          height="100"
+          className="w-auto"
+        />
+      </div>
+
+      <WaveBackground />
+      <Card className="w-full max-w-md p-6">
+        <CardHeader className="text-center gap-3">
+          <CardTitle variant={"huge"}>Faça login na Onda Finance</CardTitle>
           <CardDescription>
-            Enter your email and password below to login to your account
+            Digite seu e-mail e senha abaixo para acessar sua conta
           </CardDescription>
         </CardHeader>
+
+        <Separator />
+
         <CardContent>
           <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
             <FieldSet className="w-full">
@@ -102,9 +118,12 @@ const LoginPage: React.FC = () => {
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor="email-form">E-mail:</FieldLabel>
-                      <InputGroup className="min-h-10">
-                        <InputGroupAddon align="inline-start" className="px-2">
-                          <Mail className="text-muted-foreground" />
+                      <InputGroup className="min-h-12">
+                        <InputGroupAddon
+                          align="inline-start"
+                          className="h-full px-3 bg-primary rounded-s-xl"
+                        >
+                          <Mail className="text-foreground" />
                         </InputGroupAddon>
                         <InputGroupInput
                           {...field}
@@ -126,15 +145,13 @@ const LoginPage: React.FC = () => {
                     control={form.control}
                     render={({ field, fieldState }) => (
                       <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor="password-form">
-                          Password:
-                        </FieldLabel>
-                        <InputGroup className="min-h-10">
+                        <FieldLabel htmlFor="password-form">Senha:</FieldLabel>
+                        <InputGroup className="min-h-12">
                           <InputGroupAddon
                             align="inline-start"
-                            className="px-2"
+                            className="h-full px-3 bg-primary rounded-s-xl"
                           >
-                            <Lock className="text-muted-foreground" />
+                            <Lock className="text-foreground" />
                           </InputGroupAddon>
                           <InputGroupInput
                             {...field}
@@ -145,13 +162,13 @@ const LoginPage: React.FC = () => {
                           />
                           <InputGroupAddon
                             align="inline-end"
-                            className="px-2"
+                            className="h-full px-3 bg-primary cursor-pointer rounded-e-xl"
                             onClick={() => setIsVisible((prev) => !prev)}
                           >
                             {isVisible ? (
-                              <EyeOff className="text-muted-foreground" />
+                              <EyeOff className="text-foreground" />
                             ) : (
-                              <Eye className="text-muted-foreground" />
+                              <Eye className="text-foreground" />
                             )}
                           </InputGroupAddon>
                         </InputGroup>
@@ -163,9 +180,10 @@ const LoginPage: React.FC = () => {
                   />
                   <a
                     href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="ml-auto inline-block font-normal text-muted-foreground 
+                    underline-offset-4 underline [:hover]:text-primary-foreground"
                   >
-                    Forgot your password?
+                    Esqueceu sua senha?
                   </a>
                 </div>
               </FieldGroup>
@@ -197,13 +215,13 @@ const LoginPage: React.FC = () => {
                 "Login"
               )}
             </Button>
-            <FieldDescription className="text-center">
-              Don&apos;t have an account? <a href="#">Sign up</a>
+            <FieldDescription className="text-center [&>a:hover]:text-primary-foreground">
+              Não tem uma conta <a href="#">Cadastre-se</a>
             </FieldDescription>
           </Field>
         </CardFooter>
       </Card>
-    </div>
+    </main>
   );
 };
 
