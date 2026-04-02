@@ -10,7 +10,7 @@ import { NavLink } from "react-router";
 
 const FallbackPage: React.FC = () => {
   return (
-    <div className="grid min-h-screen w-full place-items-center px-4 bg-linear-to-r from-blue-300 to-blue-400">
+    <main className="grid min-h-screen w-full place-items-center px-4 bg-linear-to-r from-green-300 to-green-400">
       <Card className="w-full max-w-md flex">
         <CardHeader className="text-center">
           <CardTitle variant={"huge"} className="py-4">
@@ -28,7 +28,7 @@ const FallbackPage: React.FC = () => {
           </NavLink>
         </CardContent>
       </Card>
-    </div>
+    </main>
   );
 };
 
